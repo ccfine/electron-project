@@ -14,16 +14,18 @@ const createWindow = () => {
     slashes: true
   });
   win.loadURL(URL);
-
-  win.webContents.openDevTools();
   win.on("close", () => {
     win = null;
-  })
+  });
+  win.webContents.openDevTools();
+
+  require("./main-process/menu.js");
 };
+
 app.on("ready", createWindow);
 app.on("window-all-close", () => {
   if (process.platform !== "darwin") {
-     app.quit();
+    app.quit();
   }
 });
 app.on("activate", () => {
