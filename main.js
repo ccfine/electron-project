@@ -2,6 +2,8 @@ const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const url = require("url");
 
+const pdf = require("./main-process/pdf.js");
+
 let win;
 const createWindow = () => {
   win = new BrowserWindow({
@@ -21,6 +23,8 @@ const createWindow = () => {
 
   require("./main-process/menu.js");
   require("./main-process/msg-a.js");
+  pdf(win);
+  // require("./main-process/dialog.js");  
   // require("./main-process/tray.js");  
 };
 
@@ -35,3 +39,5 @@ app.on("activate", () => {
     createWindow();
   }
 });
+
+require("./main-process/shortcut.js");
